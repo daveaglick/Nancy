@@ -41,7 +41,7 @@ namespace Nancy.ViewEngines.Razor
                 throw new ArgumentNullException(nameof(feature));
             }
 
-            foreach (Assembly assembly in GetAllAssemblies().Where(assembly => assembly.Location != null))
+            foreach (Assembly assembly in GetAllAssemblies().Where(assembly => !assembly.IsDynamic && assembly.Location != null))
             {
                 feature.MetadataReferences.Add(MetadataReference.CreateFromFile(assembly.Location));
             }
@@ -100,8 +100,7 @@ namespace Nancy.ViewEngines.Razor
         {
             var loadedAssemblies = new HashSet<Assembly>();
 
-            loadedAssemblies.Add(Assembly.Load(new AssemblyName("mscorlib")));
-            loadedAssemblies.Add(Assembly.Load(new AssemblyName("System.Private.CoreLib")));
+#if CORE
             foreach (var library in DependencyContext.Default.RuntimeLibraries)
             {
                 try
@@ -112,6 +111,12 @@ namespace Nancy.ViewEngines.Razor
                 {
                 }
             }
+#else
+            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            {
+                loadedAssemblies.Add(assembly);
+            }
+#endif
 
             return loadedAssemblies;
         }

@@ -95,7 +95,7 @@ namespace Nancy.ViewEngines.Razor
                         .EnsureSuccessful(null);
                     using (var output = new StreamWriter(stream))
                     {
-                        var viewContext = GetViewContext(view.View, model, output);
+                        var viewContext = GetViewContext(view.View, model, output, renderContext);
                         view.View.RenderAsync(viewContext).GetAwaiter().GetResult();
                         output.Flush();
                     }
@@ -104,7 +104,7 @@ namespace Nancy.ViewEngines.Razor
             }
         }
 
-        private ViewContext GetViewContext(IView view, dynamic model, TextWriter output)
+        private ViewContext GetViewContext(IView view, dynamic model, TextWriter output, IRenderContext renderContext)
         {
             HttpContext httpContext = new DefaultHttpContext
             {
@@ -119,7 +119,8 @@ namespace Nancy.ViewEngines.Razor
             };
             ITempDataDictionary tempData = new TempDataDictionary(
                 actionContext.HttpContext, razorServices.GetRequiredService<ITempDataProvider>());
-            ViewContext viewContext = new ViewContext(actionContext, view, viewData, tempData, output, new HtmlHelperOptions());
+            NancyViewContext viewContext = new NancyViewContext(renderContext, 
+                actionContext, view, viewData, tempData, output, new HtmlHelperOptions());
             return viewContext;
         }
     }
