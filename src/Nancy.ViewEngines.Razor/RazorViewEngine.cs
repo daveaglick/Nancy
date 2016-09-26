@@ -22,6 +22,8 @@ using Nancy.Responses;
 
 namespace Nancy.ViewEngines.Razor
 {
+    using System.Text.Encodings.Web;
+
     /// <summary>
     /// View engine for rendering razor views.
     /// </summary>
@@ -96,7 +98,19 @@ namespace Nancy.ViewEngines.Razor
                     using (var output = new StreamWriter(stream))
                     {
                         var viewContext = GetViewContext(view.View, model, output, renderContext);
-                        view.View.RenderAsync(viewContext).GetAwaiter().GetResult();
+                        try
+                        {
+                            view.View.RenderAsync(viewContext).GetAwaiter().GetResult();
+                        }
+                        catch (InvalidOperationException ex)
+                        {
+                            // Throw a specialized exception for partial view location problems
+                            if (ex.Message.StartsWith("The partial view"))
+                            {
+                                throw new ViewNotFoundException(ex.Message);
+                            }
+                            throw;
+                        }
                         output.Flush();
                     }
                 };
