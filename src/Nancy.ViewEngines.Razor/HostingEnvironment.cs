@@ -5,13 +5,11 @@ using Microsoft.Extensions.FileProviders;
 
 namespace Nancy.ViewEngines.Razor
 {
-    public  class HostingEnvironment : IHostingEnvironment
+    public class HostingEnvironment : IHostingEnvironment
     {
-        private readonly IFileProvider fileProvider;
-
-        public HostingEnvironment(IViewLocationProvider locationProvider)
+        public HostingEnvironment()
         {
-            this.fileProvider = new FileProvider(locationProvider);
+            // TODO: Why is this getting constructed more than once when it's scoped?
         }
 
         public string EnvironmentName
@@ -27,11 +25,7 @@ namespace Nancy.ViewEngines.Razor
             set { throw new NotSupportedException(); }
         }
 
-        public IFileProvider WebRootFileProvider
-        {
-            get { return fileProvider; }
-            set { throw new NotSupportedException(); }
-        }
+        public IFileProvider WebRootFileProvider { get; set; }
 
         public string WebRootPath
         {

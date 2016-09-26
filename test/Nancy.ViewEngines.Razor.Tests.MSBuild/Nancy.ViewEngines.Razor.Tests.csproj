@@ -377,10 +377,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Link>TestViews\ViewThatUsesAttributeWithRawHtmlStringInside.cshtml</Link>
     </None>
-    <None Include="..\Nancy.ViewEngines.Razor.Tests\TestViews\ViewThatUsesHelper.cshtml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Link>TestViews\ViewThatUsesHelper.cshtml</Link>
-    </None>
     <None Include="..\Nancy.ViewEngines.Razor.Tests\TestViews\ViewThatUsesAttributeWithCodeInside.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <Link>TestViews\ViewThatUsesAttributeWithCodeInside.cshtml</Link>

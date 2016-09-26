@@ -384,14 +384,14 @@
     <Compile Include="..\Nancy.ViewEngines.Razor\EmptyDisposable.cs">
       <Link>EmptyDisposable.cs</Link>
     </Compile>
-    <Compile Include="..\Nancy.ViewEngines.Razor\FileProvider.cs">
-      <Link>FileProvider.cs</Link>
-    </Compile>
     <Compile Include="..\Nancy.ViewEngines.Razor\HostingEnvironment.cs">
       <Link>HostingEnvironment.cs</Link>
     </Compile>
     <Compile Include="..\Nancy.ViewEngines.Razor\IRazorConfiguration.cs">
       <Link>IRazorConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\Nancy.ViewEngines.Razor\LocationProviderDirectoryContents.cs">
+      <Link>LocationProviderDirectoryContents.cs</Link>
     </Compile>
     <Compile Include="..\Nancy.ViewEngines.Razor\MetadataReferenceFeatureProvider.cs">
       <Link>MetadataReferenceFeatureProvider.cs</Link>
@@ -411,6 +411,9 @@
     <Compile Include="..\Nancy.ViewEngines.Razor\RazorViewEngineRegistrations.cs">
       <Link>RazorViewEngineRegistrations.cs</Link>
     </Compile>
+    <Compile Include="..\Nancy.ViewEngines.Razor\RazorViewRenderer.cs">
+      <Link>RazorViewRenderer.cs</Link>
+    </Compile>
     <Compile Include="..\Nancy.ViewEngines.Razor\SilentDiagnosticSource.cs">
       <Link>SilentDiagnosticSource.cs</Link>
     </Compile>
@@ -428,6 +431,9 @@
     </Compile>
     <Compile Include="..\Nancy.ViewEngines.Razor\ViewLocationFileInfo.cs">
       <Link>ViewLocationFileInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Nancy.ViewEngines.Razor\ViewLocationFileProvider.cs">
+      <Link>ViewLocationFileProvider.cs</Link>
     </Compile>
   </ItemGroup>
 </Project>
