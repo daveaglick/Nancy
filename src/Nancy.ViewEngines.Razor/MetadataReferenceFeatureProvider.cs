@@ -41,7 +41,7 @@ namespace Nancy.ViewEngines.Razor
                 throw new ArgumentNullException(nameof(feature));
             }
 
-            foreach (Assembly assembly in GetAllAssemblies().Where(assembly => !assembly.IsDynamic && assembly.Location != null))
+            foreach (Assembly assembly in GetAllAssemblies().Where(assembly => !assembly.IsDynamic && !string.IsNullOrEmpty(assembly.Location)))
             {
                 feature.MetadataReferences.Add(MetadataReference.CreateFromFile(assembly.Location));
             }

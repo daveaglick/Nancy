@@ -426,5 +426,8 @@
     <Compile Include="..\Nancy.ViewEngines.Razor\ViewLocationExpander.cs">
       <Link>ViewLocationExpander.cs</Link>
     </Compile>
+    <Compile Include="..\Nancy.ViewEngines.Razor\ViewLocationFileInfo.cs">
+      <Link>ViewLocationFileInfo.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>

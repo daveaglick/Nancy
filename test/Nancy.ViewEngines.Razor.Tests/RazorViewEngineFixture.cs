@@ -25,24 +25,26 @@
 
         public RazorViewEngineFixture()
         {
+            this.rootPathProvider = A.Fake<IRootPathProvider>();
+            A.CallTo(() => this.rootPathProvider.GetRootPath()).Returns(Path.Combine(Environment.CurrentDirectory, "TestViews"));
+
             this.fileSystemViewLocationProvider = new FileSystemViewLocationProvider(this.rootPathProvider, new DefaultFileSystemReader());
 
             var assemblyCatalog = new AppDomainAssemblyCatalog();
 
             var environment = new DefaultNancyEnvironment();
-            environment.Tracing(
-                enabled: true,
-                displayErrorTraces: true);
-            
+            environment.Tracing(enabled: true, displayErrorTraces: true);
+            environment.AddValue(ViewConfiguration.Default);
+
             this.configuration = A.Fake<IRazorConfiguration>();
             this.engine = new RazorViewEngine(this.configuration, assemblyCatalog, this.fileSystemViewLocationProvider);
             A.CallTo(() => this.configuration.GetAssemblyNames()).Returns(new[] { "Nancy.ViewEngines.Razor.Tests.Models" });
             
             this.renderContext = A.Fake<IRenderContext>();
 
-            this.rootPathProvider = A.Fake<IRootPathProvider>();
-            A.CallTo(() => this.rootPathProvider.GetRootPath()).Returns(Path.Combine(Environment.CurrentDirectory, "TestViews"));
-
+            var locator = new DefaultViewLocator(this.fileSystemViewLocationProvider, new[] { engine }, environment);
+            var context = new ViewEngineStartupContext(A.Fake<IViewCache>(), locator);
+            this.engine.Initialize(context);
         }
 
         [Fact]
