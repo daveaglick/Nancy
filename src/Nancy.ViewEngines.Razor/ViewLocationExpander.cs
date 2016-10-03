@@ -12,7 +12,7 @@ namespace Nancy.ViewEngines.Razor
         public IEnumerable<string> ExpandViewLocations(ViewLocationExpanderContext context, IEnumerable<string> viewLocations)
         {
             // Nancy is handling view path expansion, so always just look at the view name
-            return new[] { "/{0}" };
+            return new[] { "{0}" };
         }
     }
 }

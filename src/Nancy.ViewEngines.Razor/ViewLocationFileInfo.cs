@@ -64,7 +64,7 @@ namespace Nancy.ViewEngines.Razor
             }
             if (reader == null)
             {
-                return null;
+                reader = new StringReader(string.Empty);
             }
             var streamReader = reader as StreamReader;
             if (streamReader != null && streamReader.BaseStream != null)

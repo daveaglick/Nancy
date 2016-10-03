@@ -77,13 +77,13 @@
             {
                 options.ViewLocationExpanders.Add(new ViewLocationExpander());
             });
-
+            
             serviceCollection
                 .AddSingleton<ILoggerFactory, SilentLoggerFactory>()
                 .AddSingleton<DiagnosticSource, SilentDiagnosticSource>()
                 .AddSingleton<ObjectPoolProvider, DefaultObjectPoolProvider>()
                 .AddSingleton(this.razorConfiguration)
-                .AddScoped<IHostingEnvironment, HostingEnvironment>()
+                .AddSingleton<IHostingEnvironment, HostingEnvironment>()
                 .AddScoped<IMvcRazorHost, NancyRazorHost>()
                 .AddScoped<RazorViewRenderer>();
 

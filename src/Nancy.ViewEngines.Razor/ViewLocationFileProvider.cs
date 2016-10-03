@@ -21,7 +21,7 @@ namespace Nancy.ViewEngines.Razor
 
         public IFileInfo GetFileInfo(string subpath)
         {
-            return new ViewLocationFileInfo(this.renderContext.LocateView(subpath, this.model));
+            return new ViewLocationFileInfo(this.renderContext.LocateView(subpath.TrimStart(new char[] { '/', '\\' }), this.model));
         }
 
         public IDirectoryContents GetDirectoryContents(string subpath)

@@ -39,8 +39,17 @@
             this.configuration = A.Fake<IRazorConfiguration>();
             this.engine = new RazorViewEngine(this.configuration, assemblyCatalog, this.fileSystemViewLocationProvider);
             A.CallTo(() => this.configuration.GetAssemblyNames()).Returns(new[] { "Nancy.ViewEngines.Razor.Tests.Models" });
-            
+
+            var cache = A.Fake<IViewCache>();
+
             this.renderContext = A.Fake<IRenderContext>();
+            A.CallTo(() => this.renderContext.ViewCache).Returns(cache);
+            A.CallTo(() => this.renderContext.LocateView(A<string>.Ignored, A<object>.Ignored))
+                .ReturnsLazily(x =>
+                {
+                    var viewName = x.GetArgument<string>(0);
+                    return this.FindView(viewName);
+                });
 
             var locator = new DefaultViewLocator(this.fileSystemViewLocationProvider, new[] { engine }, environment);
             var context = new ViewEngineStartupContext(A.Fake<IViewCache>(), locator);
