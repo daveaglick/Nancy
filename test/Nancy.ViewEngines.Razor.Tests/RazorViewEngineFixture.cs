@@ -37,7 +37,7 @@
             environment.AddValue(ViewConfiguration.Default);
 
             this.configuration = A.Fake<IRazorConfiguration>();
-            this.engine = new RazorViewEngine(this.configuration, assemblyCatalog, this.fileSystemViewLocationProvider);
+            this.engine = new RazorViewEngine(this.configuration, assemblyCatalog, this.fileSystemViewLocationProvider, environment);
             A.CallTo(() => this.configuration.GetAssemblyNames()).Returns(new[] { "Nancy.ViewEngines.Razor.Tests.Models" });
 
             var cache = A.Fake<IViewCache>();
@@ -445,9 +445,9 @@
             var output = ReadAll(stream);
             output.ShouldContain("<a href=\"BobSlug\">Bob</a>");
         }
-
+        
         [Fact]
-        public void Should_render_compilation_source_on_compilation_error()
+        public void Should_render_compilation_errors()
         {
             // Given
             var view = new StringBuilder()
@@ -469,7 +469,7 @@
 
             // Then
             var output = ReadAll(stream);
-            output.ShouldContain("namespace RazorOutput {");
+            output.ShouldContain("Line: 2 Column: 10");
         }
 
         [Fact]

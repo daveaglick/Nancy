@@ -351,6 +351,11 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="..\Nancy.ViewEngines.Razor\Resources\CompilationError.html">
+      <Link>Resources\CompilationError.html</Link>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -434,6 +439,9 @@
     </Compile>
     <Compile Include="..\Nancy.ViewEngines.Razor\ViewLocationFileProvider.cs">
       <Link>ViewLocationFileProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Nancy.ViewEngines.Razor\NancyRazorErrorView.cs">
+      <Link>NancyRazorErrorView.cs</Link>
     </Compile>
   </ItemGroup>
 </Project>

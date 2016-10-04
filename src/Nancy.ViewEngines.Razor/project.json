@@ -11,6 +11,7 @@
   },
 
   "buildOptions": {
+    "embed": "Resources/**/*.*",
     "xmlDoc": true
   },
 

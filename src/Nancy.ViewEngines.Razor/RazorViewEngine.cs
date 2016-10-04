@@ -42,6 +42,8 @@
 
         private readonly IViewLocationProvider locationProvider;
 
+        private readonly INancyEnvironment environment;
+
         private IServiceProvider razorServices;
 
         /// <summary>
@@ -57,11 +59,12 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="RazorViewEngine"/> class.
         /// </summary>
-        public RazorViewEngine(IRazorConfiguration razorConfiguration, IAssemblyCatalog assemblyCatalog, IViewLocationProvider locationProvider)
+        public RazorViewEngine(IRazorConfiguration razorConfiguration, IAssemblyCatalog assemblyCatalog, IViewLocationProvider locationProvider, INancyEnvironment environment)
         {
             this.razorConfiguration = razorConfiguration;
             this.assemblyCatalog = assemblyCatalog;
             this.locationProvider = locationProvider;
+            this.environment = environment;
         }
 
         public void Initialize(ViewEngineStartupContext viewEngineStartupContext)
@@ -103,7 +106,7 @@
                 var viewRenderer = scope.ServiceProvider.GetRequiredService<RazorViewRenderer>();
                 var response = new HtmlResponse
                 {
-                    Contents = stream => viewRenderer.RenderView(viewLocation, model, renderContext, stream)
+                    Contents = stream => viewRenderer.RenderView(viewLocation, model, renderContext, this.environment, stream)
                 };
                 return response;
             }

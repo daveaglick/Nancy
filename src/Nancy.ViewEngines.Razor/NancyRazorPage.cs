@@ -15,9 +15,7 @@ namespace Nancy.ViewEngines.Razor
             get
             {
                 var viewContext = this.ViewContext as NancyViewContext;
-                if (viewContext == null)
-                    return (object)null;
-                return viewContext.RenderContext.Context.ViewBag;
+                return viewContext == null ? null : viewContext.RenderContext.Context.ViewBag;
             }
         }
     }
